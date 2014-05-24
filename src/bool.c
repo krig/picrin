@@ -16,15 +16,10 @@ pic_equal_p(pic_state *pic, pic_value x, pic_value y)
     return true;
 
   type = pic_type(x);
-  if (type != pic_type(y))
-    return false;
-  switch (type) {
-  case PIC_TT_PAIR:
-    return pic_equal_p(pic, pic_car(pic, x), pic_car(pic, y))
-      && pic_equal_p(pic, pic_cdr(pic, x), pic_cdr(pic, y));
-  default:
-    return false;
-  }
+  return (type == PIC_TT_PAIR)
+    && (type == pic_type(y))
+    && pic_equal_p(pic, pic_car(pic, x), pic_car(pic, y))
+    && pic_equal_p(pic, pic_cdr(pic, x), pic_cdr(pic, y));
 }
 
 static pic_value
