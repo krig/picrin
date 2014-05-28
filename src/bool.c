@@ -10,16 +10,10 @@
 bool
 pic_equal_p(pic_state *pic, pic_value x, pic_value y)
 {
-  enum pic_tt type;
-
-  if (pic_eqv_p(x, y))
-    return true;
-
-  type = pic_type(x);
-  return (type == PIC_TT_PAIR)
-    && (type == pic_type(y))
+  return pic_eqv_p(x, y)
+    || (pic_pair_p(x) && pic_pair_p(y)
     && pic_equal_p(pic, pic_car(pic, x), pic_car(pic, y))
-    && pic_equal_p(pic, pic_cdr(pic, x), pic_cdr(pic, y));
+    && pic_equal_p(pic, pic_cdr(pic, x), pic_cdr(pic, y)));
 }
 
 static pic_value
